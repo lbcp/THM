@@ -1,4 +1,4 @@
-# Weasel Writeup (TryHackMe)
+# Weasel Writeup ([TryHackMe][2])
 
 #### A great room for everyone who is involved in data science.
 
@@ -353,3 +353,4 @@ For someone who works with Jupyter notebooks pretty much every day, **this room 
 #### I hope you enjoyed this writeup.
 
   [1]: https://superuser.com/questions/1107618/where-is-the-c-drive-in-the-wsl
+  [2]: https://tryhackme.com/room/weasel
