@@ -90,15 +90,15 @@ Now, let's start OWASP ZAP and have a look at the hosted website.
 
 At first we see a very generic landing page, which directly leads us to the `blog.php` site.
 
-![](C:\Users\mfichtn\Documents\THM\THM\WhyHackMe\Images\LandingPage.jpg)
+![](.\Images\LandingPage.jpg)
 
 There we see the user `admin`, again.
 
-![](C:\Users\mfichtn\Documents\THM\THM\WhyHackMe\Images\Blog.jpg)
+![](.\Images\Blog.jpg)
 
 And finally a login page.
 
-![](C:\Users\mfichtn\Documents\THM\THM\WhyHackMe\Images\Login.jpg)
+![](.\Images\Login.jpg)
 
 I tried to brute force the login page, using the user `admin` and `common`,  but did not succeed.
 
@@ -136,7 +136,7 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 
 `register.php` and `config.php` sound promising. Let's check them out.
 
-![](C:\Users\mfichtn\Documents\THM\THM\WhyHackMe\Images\Register.jpg)
+![](.\Images\Register.jpg)
 
 I registered a user `test` and went on to try some Cross site scripting (XSS) on the blog. Nothing worked though.
 
@@ -144,7 +144,7 @@ Since the user is shown as well, I tried whether my username could be abused. I 
 
 Now I wrote a new blogpost. And here it comes.
 
-![](C:\Users\mfichtn\Documents\THM\THM\WhyHackMe\Images\ScriptUserTest.jpg)
+![](.\Images\ScriptUserTest.jpg)
 
 Great. It seems that the webpage is susceptible to XSS attacks.
 
@@ -318,12 +318,11 @@ Service Info: Host: www.example.com
 
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 40.73 seconds
-
 ```
 
 This seems to be a https server. Checking it out with Firefox leads to a huge dissapointment:
 
-![](C:\Users\mfichtn\Documents\THM\THM\WhyHackMe\Images\Port41312.jpg)
+![](.\Images\Port41312.jpg)
 
 Again, this route seems to be blocked.
 
@@ -366,11 +365,11 @@ jack@ubuntu:/etc/apache2/sites-enabled$ ls
 000-default.conf
 jack@ubuntu:/etc/apache2/sites-enabled$ cat 000-default.conf 
 <VirtualHost *:80>
-	[snip]
-	ServerAdmin webmaster@localhost
-	DocumentRoot /var/www/html
-	ScriptAlias "/cgi-bin/" "/usr/local/apache2/cgi-bin/"
-	[snip]
+    [snip]
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/html
+    ScriptAlias "/cgi-bin/" "/usr/local/apache2/cgi-bin/"
+    [snip]
 </VirtualHost>
 
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
@@ -385,15 +384,15 @@ Listen 41312
         SSLProtocol -all +TLSv1.2
         SSLCertificateFile /etc/apache2/certs/apache-certificate.crt
         SSLCertificateKeyFile /etc/apache2/certs/apache.key
-	ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
-	AddHandler cgi-script .cgi .py .pl
-	DocumentRoot /usr/lib/cgi-bin/
-	<Directory "/usr/lib/cgi-bin">
-		AllowOverride All 
-		Options +ExecCGI -Multiviews +SymLinksIfOwnerMatch
-		Order allow,deny
-		Allow from all
-	</Directory>
+    ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
+    AddHandler cgi-script .cgi .py .pl
+    DocumentRoot /usr/lib/cgi-bin/
+    <Directory "/usr/lib/cgi-bin">
+        AllowOverride All 
+        Options +ExecCGI -Multiviews +SymLinksIfOwnerMatch
+        Order allow,deny
+        Allow from all
+    </Directory>
 </VirtualHost>
 ```
 
@@ -401,7 +400,7 @@ Listen 41312
 
 As expected, the connection was encrypted so I loaded the `apache.key` to wirkeshark (Edit -> Preferences -> Protocols -> SSL -> Edit RSA Key list). I then analysed the formerly encrypted HTTP stream:
 
-![](C:\Users\mfichtn\Documents\THM\THM\WhyHackMe\Images\Wireshark.jpg)
+![](.\Images\Wireshark.jpg)
 
 Seems like our secret website is executing any command when we call the `5UP3r53Cr37.py` file, and supply the right key. After all, opening the port wasn't too bad. I was playing around with some commands and checked the full script using the `cat 5UP3r53Cr37.py` command in the browser:
 
