@@ -220,7 +220,7 @@ Accept: */*
 Referer: http://127.0.0.1/blog.php
 Accept-Encoding: gzip, deflate
 
-jack:WhyIsMyPasswordSoStrongIDK
+jack:[redacted]
 ```
 
 I was hoping to see all my funny username but it appears that this file does not store the websites credentials but SSH credentials.
